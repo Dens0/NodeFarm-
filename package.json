@@ -1,0 +1,26 @@
+{
+  "name": "node-farm",
+  "version": "1.0.0",
+  "description": "small node js project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dens0/NodeFarm-.git"
+  },
+  "author": "Adrian Sutkowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dens0/NodeFarm-/issues"
+  },
+  "homepage": "https://github.com/Dens0/NodeFarm-#readme",
+  "dependencies": {
+    "slugify": "^1.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

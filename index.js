@@ -1,10 +1,13 @@
 const fs = require("fs")
 const http = require('http')
 const url = require('url')
+
+const slugify = require('slugify')
+
 const replaceTemplate = require('./modules/replaceTemplate')
 
 
-
+console.log(slugify('Fresh Avocados', {lower: true}))
 //FILES
 //blocking sync way
 // fs.readFile('txt\\stadrt.txt', 'utf-8', ((err, data1) => {
@@ -34,10 +37,12 @@ const tempProduct = fs.readFileSync('templates\\template_product.html', 'utf-8')
 const data = fs.readFileSync('dev-data\\data.json', 'utf-8')
 const dataObj = JSON.parse(data)
 
+const slugs = dataObj.map(el => slugify(el.productName, {lower: true, replacement: '/*/'}))
+console.log(slugs)
 
 const server = http.createServer((req, res) => {
     // console.log(req.url)
-const {query, pathname} = url.parse( req.url,true)
+    const {query, pathname} = url.parse(req.url, true)
 
 // OVERVIEV
     if (pathname === '/overview' || pathname === '/') {
@@ -54,12 +59,12 @@ const {query, pathname} = url.parse( req.url,true)
     } else if (pathname === '/product') {
         res.writeHead(200, {'Content-type': 'text/html'})
 
-        const  product = dataObj[query.id]
-        const  output = replaceTemplate(tempProduct, product)
+        const product = dataObj[query.id]
+        const output = replaceTemplate(tempProduct, product)
         res.end(output)
 // API
     } else if (pathname === '/api') {
-        fs.readFile('dev-data\\data.json', 'utf-8', (err, data) => {
+        fs.readFile("dev-data\\data.json", 'utf-8', (err, data) => {
             res.writeHead(200, {'Content-type': 'application/json'})
             res.end(data)
 
